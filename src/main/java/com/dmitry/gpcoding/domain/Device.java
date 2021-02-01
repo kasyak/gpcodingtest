@@ -15,11 +15,12 @@ public class Device {
         this.name = name;
     }
 
+    //@NotEmpty(message = "The serial number does not match our records.")
     public String getSerialNumber() {
         return serialNumber;
     }
 
-    @NonNull
+    //@NotEmpty(message = "The machine code does not match our records.")
     public String getMachineCode() {
         return machineCode;
     }

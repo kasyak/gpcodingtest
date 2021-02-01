@@ -5,11 +5,18 @@ import com.dmitry.gpcoding.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @RestController
+@Validated
 public class DeviceController {
     @Autowired
     DeviceService deviceService;
@@ -31,14 +38,17 @@ public class DeviceController {
     }
 
     @PostMapping("/devices")
-    public ResponseEntity<Object> addDevice(@RequestBody Device device) {
+    public ResponseEntity<Object> addDevice( //@Valid
+                                                @RequestBody Device device) {
         deviceService.createDevice(device);
-        return new ResponseEntity<>("Product is created successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>("Device is created successfully", HttpStatus.CREATED);
     }
 
     @PutMapping("/devices/{serialNumber}")
-    public ResponseEntity<Object> updateProduct(@PathVariable("serialNumber") String serialNumber, @RequestBody Device device) {
+    public ResponseEntity<Object> updateDevice(@PathVariable("serialNumber") String serialNumber,
+                                               // @Valid
+                                               @RequestBody Device device) {
         deviceService.updateDevice(serialNumber, device);
-        return new ResponseEntity<>("Product is updated successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Device is updated successfully", HttpStatus.OK);
     }
 }
